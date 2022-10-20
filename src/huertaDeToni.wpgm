@@ -4,6 +4,11 @@ import plantas.*
 import pachamama.*
 
 program huertaDeToni {
+	keyboard.m().onPressDo({toni.sembrar(new Maiz())})
+	keyboard.t().onPressDo({toni.sembrar(new Trigo())})
+	keyboard.o().onPressDo({toni.sembrar(new Tomaco())})
+	keyboard.a().onPressDo({toni.regarTodasLasPlantas()}) // no riega todas las plantas
+	keyboard.r().onPressDo({game.colliders(toni).forEach({p => p.regar()})})
 	game.width(15)
 	game.height(15)
 	
@@ -11,7 +16,7 @@ program huertaDeToni {
 	game.ground("tierra.png")
 	
 	// Agregamos al amigo Toni.
-	game.addVisual(toni)
+	game.addVisualCharacter(toni)
 	
 	/*
 	 * Acá usamos addVisualIn en vez de addVisual, y por esto 
@@ -30,6 +35,6 @@ program huertaDeToni {
 	 * un rango (1..13), que equivale a la lista [1, 2, 3, ..., 13].
 	 */
 	(1..13).forEach { x => game.addVisualIn(new Maiz(), game.at(x, 5)) }
-		
+	
 	game.start()
 }
