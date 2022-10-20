@@ -18,6 +18,14 @@ class Maiz {
 		imagen = "maiz_adulto.png"
 	}
 	
+	method estasParaCosechar() = imagen == "maiz_adulto.png"
+	
+	method cosechar() {
+		toni.cosecharPlanta(self)
+		game.removeVisual(self)
+	}
+	
+	
 	method position() = position
 }
 
@@ -27,8 +35,11 @@ class Trigo{
 	method cultivar() {imagen = "trigo_0.png"}
 	
 	method regar() {imagen = "trigo_1.png"}
-	
-	method cosechar() {imagen = "trigo_2.png"}
+	method estasParaCosechar() = imagen == "trigo_1.png"
+	method cosechar() {
+		toni.cosecharPlanta(self)
+		game.removeVisual(self)
+	}
 	
 	method image() {
 		return imagen
@@ -42,6 +53,11 @@ class Tomaco {
 	const position = toni.position()
 	method cultivar() {imagen = "tomaco_ok.png"}
 	method regar() {imagen = "tomaco_podrido.png"}
+	method estasParaCosechar() = imagen == "tomaco_ok.png"
+	method cosechar() {
+		toni.cosecharPlanta(self)
+		game.removeVisual(self)
+	}
 	method image() = imagen
 	method position() = position
 }

@@ -2,39 +2,31 @@ import wollok.game.*
 import toni.*
 import plantas.*
 import pachamama.*
-
+import mercados.*
 program huertaDeToni {
+	//TECLADO
+	
 	keyboard.m().onPressDo({toni.sembrar(new Maiz())})
 	keyboard.t().onPressDo({toni.sembrar(new Trigo())})
 	keyboard.o().onPressDo({toni.sembrar(new Tomaco())})
 	keyboard.a().onPressDo({toni.regarTodasLasPlantas()}) // no riega todas las plantas
 	keyboard.r().onPressDo({game.colliders(toni).forEach({p => p.regar()})})
+	keyboard.c().onPressDo({game.colliders(toni).forEach({p => p.cosechar()})})
+	keyboard.x().onPressDo({toni.cosecharTodasLasPlantas()})
+	keyboard.v().onPressDo({toni.venderCosecha()})
+	keyboard.space().onPressDo({toni.informarEstado()})
+	keyboard.f().onPressDo({pachamama.fumigar()})
+	keyboard.l().onPressDo({pachamama.llover()})
+	
+	//JUEGO
+	
 	game.width(15)
 	game.height(15)
-	
-	// Configuramos una imagen de fondo, que se repite para cada celda del tablero.
 	game.ground("tierra.png")
-	
-	// Agregamos al amigo Toni.
 	game.addVisualCharacter(toni)
-	
-	/*
-	 * Acá usamos addVisualIn en vez de addVisual, y por esto 
-	 * no es necesario que la pachamama conozca su position.
-	 */
 	game.addVisualIn(pachamama, game.at(0, 13));
-	
-	/* 
-	 * Agregamos una fila de maices. Ojo al regar, que Toni no va a conocer
-	 * estas plantas.
-	 * 
-	 * En este ejemplo también usamos addVisualIn, por lo tanto
-	 * el Maiz solo define la imagen.
-	 * 
-	 * De yapa, mostramos cómo agregar varios objetos de una utilizando
-	 * un rango (1..13), que equivale a la lista [1, 2, 3, ..., 13].
-	 */
 	(1..13).forEach { x => game.addVisualIn(new Maiz(), game.at(x, 5)) }
-	
+	game.addVisualIn(new Mercado(), game.at(14, 0))
+	game.addVisualIn(new Mercado(), game.at(14, 14))
 	game.start()
 }
